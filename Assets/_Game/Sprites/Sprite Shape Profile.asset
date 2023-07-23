@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7181f404f1447c0a7a17b3070b952b, type: 3}
+  m_Name: Sprite Shape Profile
+  m_EditorClassIdentifier: 
+  m_Angles:
+  - m_Start: -137
+    m_End: -89
+    m_Order: 3
+    m_Sprites:
+    - {fileID: 21300000, guid: e412b2b4a46d0b8428795fc3d2e3f29f, type: 3}
+  - m_Start: 76
+    m_End: 133
+    m_Order: 1
+    m_Sprites:
+    - {fileID: 21300000, guid: 9732a90e5d35f5c46899a038fa2bb244, type: 3}
+  - m_Start: 133
+    m_End: 223
+    m_Order: 2
+    m_Sprites:
+    - {fileID: 21300000, guid: 8001cb91e523d144f86c113c07caa60a, type: 3}
+  - m_Start: -12
+    m_End: 76
+    m_Order: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: 287aaae04afedb343881aecd4d5c47dd, type: 3}
+  - m_Start: -89
+    m_End: -12
+    m_Order: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: 287aaae04afedb343881aecd4d5c47dd, type: 3}
+  m_FillTexture: {fileID: 2800000, guid: e237c4fad8b846c428ef55baaf196d37, type: 3}
+  m_CornerSprites:
+  - m_CornerType: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: cb08058d3a024a440a066df6bc1a799c, type: 3}
+  - m_CornerType: 1
+    m_Sprites:
+    - {fileID: 21300000, guid: 5a1c7d396795767498d3245227953709, type: 3}
+  - m_CornerType: 2
+    m_Sprites:
+    - {fileID: 21300000, guid: 1e8b2c2c38f5cfc409a0a6aaad83f10c, type: 3}
+  - m_CornerType: 3
+    m_Sprites:
+    - {fileID: 21300000, guid: b23c91f6675b7eb4684911f8cb8fad6e, type: 3}
+  - m_CornerType: 4
+    m_Sprites:
+    - {fileID: 21300000, guid: cb08058d3a024a440a066df6bc1a799c, type: 3}
+  - m_CornerType: 5
+    m_Sprites:
+    - {fileID: 21300000, guid: 5a1c7d396795767498d3245227953709, type: 3}
+  - m_CornerType: 6
+    m_Sprites:
+    - {fileID: 21300000, guid: 1e8b2c2c38f5cfc409a0a6aaad83f10c, type: 3}
+  - m_CornerType: 7
+    m_Sprites:
+    - {fileID: 21300000, guid: b23c91f6675b7eb4684911f8cb8fad6e, type: 3}
+  m_FillOffset: -0.28
+  m_UseSpriteBorders: 0
