@@ -59,12 +59,14 @@ public class PlayerController : MonoBehaviour
     public float gravityScale;
     public float fallGravityScale;
 
-
+    public Transform groundRayCast;
 
     //1a,
     Rigidbody2D rb;
     //2a1
     bool rightFlip = true;
+
+    public LayerMask maskVar;
     
 
 
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour
             float jumpF = Mathf.Sqrt(jumpH * (Physics2D.gravity.y * rb.gravityScale) * -2) * rb.mass;
             rb.AddForce(Vector2.up * jumpF, ForceMode2D.Impulse);
 
-            isGround = false;
+            //isGround = false;
             isJumping = true;
         }
         if (isJumping)
@@ -112,6 +114,8 @@ public class PlayerController : MonoBehaviour
                 isJumping = false;
             }
         }
+
+        CheckGround();
          
     }
     //2a
@@ -127,13 +131,31 @@ public class PlayerController : MonoBehaviour
         transform.localScale= Scalar;
     }
 
-    //4a
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void CheckGround()
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        RaycastHit2D hit = Physics2D.Raycast(groundRayCast.position, Vector2.down, 0.2f, maskVar);
+
+        if (hit != null)
         {
             isGround = true;
             Debug.Log("has colided 0.0");
         }
+        else
+        {
+            isGround = false;
+        }
+
     }
+
+
+
+    //4a
+   // private void OnCollisionEnter2D(Collision2D collision)
+  //  {
+  //      if (collision.gameObject.CompareTag("Ground"))
+  //      {
+  //          isGround = true;
+  //          Debug.Log("has colided 0.0");
+  //      }
+ //  }
 }
