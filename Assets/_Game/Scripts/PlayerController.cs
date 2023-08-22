@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(groundRayCast.position, Vector2.down, 0.2f, maskVar);
 
-        if (hit != null)
+        if (hit.collider != null)
         {
             isGround = true;
             Debug.Log("has colided 0.0");
