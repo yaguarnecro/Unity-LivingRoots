@@ -30,6 +30,8 @@ public class AiChase : MonoBehaviour
     private float distance;
  
     private bool Rightflip = true;
+    private bool isSearching = true;
+    private bool isAgro = false;
 
     
 
@@ -43,14 +45,16 @@ public class AiChase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         //jugador = 
-        //enemyAnimatorX = player.GetComponent<Animator>();
-       
+        enemyAnimatorX = GetComponentInChildren<Animator>();
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Estado x> "+estado);
+
         //distance between 2 transforms as a float
         distance = Vector3.Distance(transform.position, player.transform.position);
 
@@ -74,11 +78,27 @@ public class AiChase : MonoBehaviour
 
         if (CanSeePlayer(distanceBetween))
         {
-            ChasingPlayer();
+            isAgro = true;
+        
         }
         else
         {
-            stopChasingPlayer();
+            if (isAgro)
+            {
+                if (!isSearching)
+                {
+                 
+                    isSearching = true;
+                    Invoke("stopChasingPlayer", 1);
+                    enemyAnimatorX.SetTrigger("DescanzandoA");
+                    Invoke("Buscar", 5);
+                }
+
+            }
+        }
+        if(isAgro)
+        {
+            ChasingPlayer();
         }
 
 
@@ -131,52 +151,58 @@ public class AiChase : MonoBehaviour
     void stopChasingPlayer()
     {
         rb.velocity = Vector3.zero;
+        isAgro = false;
+        isSearching = false;
+
         //enemyAnimatorX.Play("Idle");
     }
 
     private void Patrullar()
     {
-
+        enemyAnimatorX.SetTrigger("WalkingA");
     }
 
     private void Perseguir()
     {
+        
+        enemyAnimatorX.SetTrigger("RunningA");
         if (distance < distanceBetween)
         {
 
             // follow & flip
             ChasingPlayer();
+            
 
-        }
-        else
-        {
-            stopChasingPlayer();
         }
     }
 
     private void Descanzar()
     {
-
+        
+        enemyAnimatorX.SetTrigger("DescanzandoA");
     }
 
     private void Buscar()
     {
-
+       
+        enemyAnimatorX.SetTrigger("WalkingA");
     }
 
     private void Atacar()
     {
-
+        
+        enemyAnimatorX.SetTrigger("HittingA");
     }
 
     private void Caer()
     {
 
+        enemyAnimatorX.SetTrigger("FallingA");
     }
 
     private void Morir()
     {
-
+        enemyAnimatorX.SetTrigger("DyingA");
     }
 
 
@@ -189,6 +215,7 @@ public class AiChase : MonoBehaviour
             
             //jugador entra al area
             Debug.Log("Entro en area de vision x");
+            Debug.Log("xestaox  " + estado);
 
             //Vector3 rayoAlEnemigo = other.transform.position - OjosEnemigo.position; ;
             //Ray rayo = new Ray(OjosEnemigo.position, rayoAlEnemigo + Vector3.up);
@@ -231,13 +258,13 @@ public class AiChase : MonoBehaviour
         }
     }
 
-    bool CanSeePlayer(float distanciaVisual)
+    bool CanSeePlayer(float distanciaBeteeen)
     {
         bool val = false;
-        float castDist = distanciaVisual;
+        float castDist = distanceBetween;
         if (isFacingLeft)
         {
-            castDist = -distanciaVisual;
+            castDist = -distanceBetween;
         }
 
 
@@ -245,20 +272,24 @@ public class AiChase : MonoBehaviour
         RaycastHit2D hit = Physics2D.Linecast(OjosEnemigo.position, endPos, layermaskRay);
         Debug.DrawLine(OjosEnemigo.position, endPos, Color.magenta);
 
-
+        //rayo detecta algo
         if (hit.collider != null)
         {
             if (hit.collider.gameObject.CompareTag("Player"))
             {
+                Debug.Log("rayo lo toco");
+                //lo vio !
                 val = true;
                 Debug.Log("Entro en area de vision x2d");
+                Debug.DrawLine(OjosEnemigo.position, hit.point, Color.red);
+                estado= EstadosEnemigo.Persiguiendo;
             }
             else
             {
                 val = false;
                 Debug.Log("Salio en area de vision x2d");
             }
-            Debug.DrawLine(OjosEnemigo.position,hit.point, Color.red);
+            Debug.DrawLine(OjosEnemigo.position,hit.point, Color.yellow);
         }
         else
         {

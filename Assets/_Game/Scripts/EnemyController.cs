@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     private Transform jugador;
     private Vector3 ultimaPosicion;
     
+    
 
     private void Start()
     {
