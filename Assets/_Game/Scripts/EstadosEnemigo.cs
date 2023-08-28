@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EstadoEnemigo
+public enum EstadosEnemigo
 {
     Patrullando,
-    Persiguientdo,
+    Persiguiendo,
     Atacando,
-    Buscando
+    Descanzando,
+    Buscando,
+    Muriendo,
+    Cayendo
 }
-
-
