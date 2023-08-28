@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public EstadoEnemigo estado = EstadoEnemigo.Patrullando;
+    public EstadosEnemigo estado = EstadosEnemigo.Patrullando;
 
     public Transform OjosEnemigo;
     public float distanciaVisual;
@@ -14,6 +15,7 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agente;
     private Transform jugador;
     private Vector3 ultimaPosicion;
+    
     
 
     private void Start()
@@ -25,16 +27,16 @@ public class EnemyController : MonoBehaviour
     {
         switch (estado)
         {
-            case EstadoEnemigo.Patrullando:
+            case EstadosEnemigo.Patrullando:
                 Patrullar();
                 break;
-            case EstadoEnemigo.Persiguientdo:
+            case EstadosEnemigo.Persiguiendo:
                 Perseguir();
                 break;
-            case EstadoEnemigo.Atacando:
+            case EstadosEnemigo.Atacando:
                 Atacar();
                 break;
-            case EstadoEnemigo.Buscando:
+            case EstadosEnemigo.Buscando:
                 Buscar();
                 break;
         }
@@ -61,16 +63,17 @@ public class EnemyController : MonoBehaviour
         {
             Vector3 rayoAlEnemigo = other.transform.position - OjosEnemigo.position;;
             Ray rayo = new Ray(OjosEnemigo.position, rayoAlEnemigo + Vector3.up);
+            Debug.DrawRay(rayo.origin, rayo.direction * distanciaVisual, Color.green);
 
-            if(Physics.Raycast(rayo, out RaycastHit hit, distanciaVisual))
+            if (Physics.Raycast(rayo, out RaycastHit hit, distanciaVisual))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
                     //lo vio
-                    estado = EstadoEnemigo.Persiguientdo;
+                    estado = EstadosEnemigo.Persiguiendo;
                     jugador = other.transform;
 
-                    if(estado == EstadoEnemigo.Buscando)
+                    if(estado == EstadosEnemigo.Buscando)
                     {
                         FantasmaDelJugador.SetActive(false);
                     }
@@ -78,9 +81,9 @@ public class EnemyController : MonoBehaviour
                 else
                 {
                     //no lo vio, por obstaculo
-                    if(estado== EstadoEnemigo.Persiguientdo || estado == EstadoEnemigo.Atacando)
+                    if(estado== EstadosEnemigo.Persiguiendo || estado == EstadosEnemigo.Atacando)
                     {
-                        estado = EstadoEnemigo.Buscando;
+                        estado = EstadosEnemigo.Buscando;
                         FantasmaDelJugador.transform.position = ultimaPosicion;
                         FantasmaDelJugador.SetActive(true);
                     }

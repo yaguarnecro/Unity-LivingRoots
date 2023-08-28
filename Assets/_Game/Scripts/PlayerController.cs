@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         if (hit.collider != null)
         {
             isGround = true;
-            Debug.Log("has colided 0.0");
+            //Debug.Log("has colided 0.0");
         }
         else
         {
